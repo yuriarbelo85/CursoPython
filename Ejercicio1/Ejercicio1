@@ -22,6 +22,18 @@ def ver_productos():
             print(f"Nombre del Producto: {producto['nombre']}, Precio MXN: {producto['precio']}")
         menu()
 
+def buscar_productos():
+    
+    nombre_producto = input("Ingrese el nombre del producto a buscar: ")
+
+    for producto in productos:
+        if producto["nombre"].lower() == nombre_producto.lower():
+            print(f"Producto encontrado: Nombre del Producto: {producto['nombre']}, Precio MXN: {producto['precio']}")
+            break
+    else:
+        print("Producto no encontrado.")
+    menu()
+
 def menu():
 
 
@@ -43,7 +55,7 @@ def menu():
             ver_productos()
 
         elif opcion == "3":
-            print("Buscar Productos")
+           buscar_productos()
 
         elif opcion == "4":
             print("Eliminar Producto")
