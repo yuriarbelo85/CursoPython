@@ -1,0 +1,56 @@
+
+productos = []
+
+def agregar_producto():
+
+    producto = input("Ingrese el nombre del producto: ")
+    precio = float(input("Ingrese el precio del producto: "))
+
+    producto = {"nombre": producto, "precio": precio}
+    productos.append(producto)
+
+    print("Producto agregado exitosamente.")
+    menu()
+
+def ver_productos():
+
+    if not productos:
+        print("No hay productos en el listado.")
+        menu()
+    else:
+        for producto in productos:
+            print(f"Nombre del Producto: {producto['nombre']}, Precio MXN: {producto['precio']}")
+        menu()
+
+def menu():
+
+
+
+    print("1. Agregar Producto")
+    print("2. Ver Productos")
+    print("3. Buscar Productos")
+    print("4. Eliminar Producto")
+    print("5. Salir")
+
+    opcion = input("Seleccione una opción: ")
+
+    while True:
+
+        if opcion == "1":
+            agregar_producto()
+
+        elif opcion == "2":
+            ver_productos()
+
+        elif opcion == "3":
+            print("Buscar Productos")
+
+        elif opcion == "4":
+            print("Eliminar Producto")
+
+        elif opcion == "5":
+            print("Saliendo del programa...")
+            exit()
+menu()
+
+
