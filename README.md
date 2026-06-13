@@ -1,2 +1,2 @@
 # CursoPython
-Ejercicios del Curso de Python
+Ejercicios del Curso de Python 2026
