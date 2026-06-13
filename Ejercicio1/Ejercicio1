@@ -4,7 +4,7 @@ productos = []
 def agregar_producto():
 
     producto = input("Ingrese el nombre del producto: ")
-    precio = input("Ingrese el precio del producto: ")
+    precio = float(input("Ingrese el precio del producto: "))
 
     producto = {"nombre": producto, "precio": precio}
     productos.append(producto)
