@@ -1,89 +1,26 @@
 
-productos = []
+import productos
+import ventas
+import json
 
-def agregar_producto():
-
-    producto = input("Ingrese el nombre del producto: ")
-    precio = float(input("Ingrese el precio del producto: "))
-
-    producto = {"nombre": producto, "precio": precio}
-    productos.append(producto)
-
-    print("Producto agregado exitosamente.")
-    guardar_json()
-
-
-def ver_productos():
-
-    if not productos:
-        print("No hay productos en el listado.")
-
-    else:
-        for producto in productos:
-            print(f"Nombre del Producto: {producto['nombre']}, Precio MXN: {producto['precio']}")
-
-
-def buscar_productos():
-    
-    nombre_producto = input("Ingrese el nombre del producto a buscar: ")
-
-    for producto in productos:
-        if producto["nombre"].lower() == nombre_producto.lower():
-            print(f"Producto encontrado: Nombre del Producto: {producto['nombre']}, Precio MXN: {producto['precio']}")
-            break
-    else:
-        print("Producto no encontrado.")
-    menu()
-
-def modificar_producto():
-    
-    nombre_producto = input("Ingrese el nombre del producto a modificar: ")
-
-    for producto in productos:
-        if producto["nombre"].lower() == nombre_producto.lower():
-            nuevo_nombre = input("Ingrese el nuevo nombre del producto: ")
-            nuevo_precio = float(input("Ingrese el nuevo precio del producto: "))
-            producto["nombre"] = nuevo_nombre
-            producto["precio"] = nuevo_precio
-            guardar_json()
-            print("Producto modificado exitosamente.")
-            break
-    else:
-        print("Producto no encontrado.")
-
-
-def eliminar_producto():
-    
-    nombre_producto = input("Ingrese el nombre del producto a eliminar: ")
-
-    for producto in productos:
-        if producto["nombre"].lower() == nombre_producto.lower():
-            productos.remove(producto)
-            guardar_json()
-            print("Producto eliminado exitosamente.")
-            break
-    else:
-        print("Producto no encontrado.")
+datos_productos = []
 
 def guardar_json():
-    import json
 
     with open("productos.json", "w") as archivo:
-        json.dump(productos, archivo)
-    print("Productos guardados en productos.json.") 
-    
+        json.dump(datos_productos, archivo, indent=4)
+
+
 def cargar_json():
 
-    import json
-
-    global productos
+    global datos_productos
 
     try:
         with open("productos.json", "r") as archivo:
-            productos = json.load(archivo)
+            datos_productos = json.load(archivo)
 
     except FileNotFoundError:
-        productos = []
+        datos_productos = []
 
 
 def menu():
@@ -95,27 +32,33 @@ def menu():
         print("3. Buscar Productos")
         print("4. Modificar Productos")
         print("5. Eliminar Producto")
-        print("6. Salir")
+        print("6. Registrar Venta")
+        print("7. Salir")
 
         opcion = input("Seleccione una opción: ")
 
 
         if opcion == "1":
-            agregar_producto()
-
+            productos.agregar_producto(datos_productos)
+            guardar_json()
         elif opcion == "2":
-            ver_productos()
+            productos.ver_productos(datos_productos)
 
         elif opcion == "3":
-           buscar_productos()
+           productos.buscar_productos(datos_productos)
 
         elif opcion == "4":
-          modificar_producto()
-
-        elif opcion == "5":
-          eliminar_producto()
+          productos.modificar_producto(datos_productos)
+          guardar_json()
 
         elif opcion == "6":
+            ventas.registrar_ventas()
+
+        elif opcion == "5":
+          productos.eliminar_producto(datos_productos)
+          guardar_json()
+
+        elif opcion == "7":
             print("Saliendo del programa...")
             exit()
 cargar_json()
