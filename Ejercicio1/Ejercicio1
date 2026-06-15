@@ -10,31 +10,95 @@ def agregar_producto():
     productos.append(producto)
 
     print("Producto agregado exitosamente.")
-    menu()
+    guardar_json()
+
 
 def ver_productos():
 
     if not productos:
         print("No hay productos en el listado.")
-        menu()
+
     else:
         for producto in productos:
             print(f"Nombre del Producto: {producto['nombre']}, Precio MXN: {producto['precio']}")
-        menu()
+
+
+def buscar_productos():
+    
+    nombre_producto = input("Ingrese el nombre del producto a buscar: ")
+
+    for producto in productos:
+        if producto["nombre"].lower() == nombre_producto.lower():
+            print(f"Producto encontrado: Nombre del Producto: {producto['nombre']}, Precio MXN: {producto['precio']}")
+            break
+    else:
+        print("Producto no encontrado.")
+    menu()
+
+def modificar_producto():
+    
+    nombre_producto = input("Ingrese el nombre del producto a modificar: ")
+
+    for producto in productos:
+        if producto["nombre"].lower() == nombre_producto.lower():
+            nuevo_nombre = input("Ingrese el nuevo nombre del producto: ")
+            nuevo_precio = float(input("Ingrese el nuevo precio del producto: "))
+            producto["nombre"] = nuevo_nombre
+            producto["precio"] = nuevo_precio
+            guardar_json()
+            print("Producto modificado exitosamente.")
+            break
+    else:
+        print("Producto no encontrado.")
+
+
+def eliminar_producto():
+    
+    nombre_producto = input("Ingrese el nombre del producto a eliminar: ")
+
+    for producto in productos:
+        if producto["nombre"].lower() == nombre_producto.lower():
+            productos.remove(producto)
+            guardar_json()
+            print("Producto eliminado exitosamente.")
+            break
+    else:
+        print("Producto no encontrado.")
+
+def guardar_json():
+    import json
+
+    with open("productos.json", "w") as archivo:
+        json.dump(productos, archivo)
+    print("Productos guardados en productos.json.") 
+    
+def cargar_json():
+
+    import json
+
+    global productos
+
+    try:
+        with open("productos.json", "r") as archivo:
+            productos = json.load(archivo)
+
+    except FileNotFoundError:
+        productos = []
+
 
 def menu():
 
-
-
-    print("1. Agregar Producto")
-    print("2. Ver Productos")
-    print("3. Buscar Productos")
-    print("4. Eliminar Producto")
-    print("5. Salir")
-
-    opcion = input("Seleccione una opción: ")
-
     while True:
+
+        print("1. Agregar Producto")
+        print("2. Ver Productos")
+        print("3. Buscar Productos")
+        print("4. Modificar Productos")
+        print("5. Eliminar Producto")
+        print("6. Salir")
+
+        opcion = input("Seleccione una opción: ")
+
 
         if opcion == "1":
             agregar_producto()
@@ -43,14 +107,18 @@ def menu():
             ver_productos()
 
         elif opcion == "3":
-            print("Buscar Productos")
+           buscar_productos()
 
         elif opcion == "4":
-            print("Eliminar Producto")
+          modificar_producto()
 
         elif opcion == "5":
+          eliminar_producto()
+
+        elif opcion == "6":
             print("Saliendo del programa...")
             exit()
+cargar_json()
 menu()
 
 
