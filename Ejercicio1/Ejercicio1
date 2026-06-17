@@ -52,7 +52,7 @@ def menu():
           guardar_json()
 
         elif opcion == "6":
-            ventas.registrar_ventas()
+          ventas.registrar_ventas(datos_productos)
 
         elif opcion == "5":
           productos.eliminar_producto(datos_productos)
