@@ -23,6 +23,8 @@ def cargar_json():
         datos_productos = []
 
 
+
+
 def menu():
 
     while True:
@@ -33,7 +35,8 @@ def menu():
         print("4. Modificar Productos")
         print("5. Eliminar Producto")
         print("6. Registrar Venta")
-        print("7. Salir")
+        print("7. Ver Ventas")
+        print("8. Salir")
 
         opcion = input("Seleccione una opción: ")
 
@@ -59,9 +62,13 @@ def menu():
           guardar_json()
 
         elif opcion == "7":
+            ventas.ver_ventas()
+
+        elif opcion == "8":
             print("Saliendo del programa...")
             exit()
 cargar_json()
+ventas.cargar_ventas()
 menu()
 
 

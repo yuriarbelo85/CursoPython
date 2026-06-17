@@ -1,5 +1,5 @@
 
-productos = []
+
 
 def agregar_producto(productos):
 
