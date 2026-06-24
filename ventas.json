@@ -1,0 +1,9 @@
+[
+    {
+        "fecha": "01/01/2026",
+        "producto": "yuri",
+        "cantidad": 10,
+        "precio_unitario": 1.0,
+        "total_venta": 10.0
+    }
+]
